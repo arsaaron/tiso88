@@ -1,0 +1,103 @@
+﻿@model IEnumerable<SportNews.Models.MatchInfoModel>
+@{
+    ViewBag.Title = "Wc2018Info";
+}
+<script type="text/javascript">
+    function Refresh() {
+        var t = setTimeout("location.reload(true)", 30000);
+    }
+</script>
+<style>
+    .nav-pills > .active > a, .nav-pills > .active > a:hover {
+    background-color: darkseagreen !important;
+}
+    td{
+        font-size:8pt;
+    }
+</style>
+
+
+<body @*onload="Refresh()"*@>
+    @*<h2></h2>*@
+    <div>
+        <ul class="nav nav-pills nav-justified">
+            <li class="active"><a id="match-tab" href="#match" data-toggle="tab" aria-controls="match"><b>LỊCH THI ĐẤU</b></a></li>
+            @*<li><a id="news-tab" href="#news" data-toggle="tab" aria-controls="news"><b>TIN TỨC</b></a></li>*@
+            <li><a cid="standing-tab" href="#standing" data-toggle="tab" aria-controls="standing"><b>BẢNG XẾP HẠNG</b></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="match" role="tabpanel" aria-labelledby="match-tab">
+                <hr />
+                @*@Html.Partial("~/views/home/_matchinfo18.cshtml", Model)*@
+            </div>
+            @*<div class="tab-pane" id="news" role="tabpanel" aria-labelledby="news-tab">
+            </div>*@
+            <div class="tab-pane" id="standing" role="tabpanel" aria-labelledby="standing-tab">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Home/MatchInfo18',
+            type: 'GET',
+            async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#match').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+
+        //setInterval(function () {
+        //    $.ajax({
+        //        url: '/Home/MatchInfo18',
+        //        type: 'GET',
+        //        async: false,
+        //        dataType: 'html',
+        //        success: function (data) {
+        //            $('#match').html(data);
+        //            //e.target;
+        //            //e.relatedTarget;
+        //        }
+        //    });
+        //}, 30000);
+
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            var tabName = $(e.target).attr("href"); //Get the name of the tab.
+            if (tabName == '#match') {
+                $.ajax({
+                    url: '/Home/MatchInfo18',
+                    type: 'GET',
+                    async: false,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#match').html(data);
+                            //setTimeout(function () {
+                            //    location.reload();
+                            //}, 15000);
+                        //e.target;
+                        //e.relatedTarget;
+                    }
+                });
+            }
+            else if (tabName == '#standing') {
+                $.ajax({
+                    url: '/Home/Standing18',
+                    type: 'GET',
+                    async: false,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#standing').html(data);
+                        //e.target;
+                        //e.relatedTarget;
+                    }
+                });
+            }
+        });
+    });
+</script>

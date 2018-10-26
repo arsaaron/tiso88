@@ -1,0 +1,266 @@
+﻿@model SportNews.Models.SumLst
+@{
+    ViewBag.Title = "Chi tiết các kèo";
+    Layout = "~/Views/Shared/_LayoutSk.cshtml";
+}
+
+<div>
+    <ul class="nav nav-pills nav-justified">
+        <li class="active"><a id="larsta-tab" href="#larsta" data-toggle="tab" aria-controls="larsta"><b>KÈO CÁC GIẢI LỚN</b></a></li>
+        <li><a cid="alleag-tab" href="#alleag" data-toggle="tab" aria-controls="alleag"><b>TẤT CẢ CÁC GIẢI</b></a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="larsta" role="tabpanel" aria-labelledby="larsta-tab">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <b>Tỷ lệ kèo các trận hôm nay</b>
+                </div>
+                @if (Model.LstAll.Count > 0)
+                {
+                    <div class="panel-body">
+                        <div class="odds_group">
+                            @foreach (var dat in Model.LstAll)
+                {
+                                <div class="odds_group-title">
+                                    <b>@dat.name</b>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="tbsk" class="table table-bordered table-condensed" @*style="font-size:10px"*@>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">
+                                                    Lịch thi đấu
+                                                </th>
+                                                <th colspan="3">
+                                                    Kèo Châu Á
+                                                </th>
+                                                <th colspan="3">
+                                                    Tài/Xỉu
+                                                </th>
+                                                <th colspan="3">
+                                                    Kèo Châu Âu
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    Thời gian
+                                                </th>
+                                                <th>
+                                                    Trận đấu
+                                                </th>
+                                                <th>
+                                                    Chủ
+                                                </th>
+                                                <th>
+                                                    Tỷ lệ
+                                                </th>
+                                                <th>
+                                                    Khách
+                                                </th>
+                                                <th>
+                                                    TS Bàn Thắng
+                                                </th>
+                                                <th>
+                                                    Trên
+                                                </th>
+                                                <th>
+                                                    Dưới
+                                                </th>
+                                                <th>
+                                                    Thắng
+                                                </th>
+                                                <th>
+                                                    Hòa
+                                                </th>
+                                                <th>
+                                                    Thua
+                                                </th>
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (var da in dat.OddLst)
+                                            {
+                                                <tr id="@da.timeMt^@da.HomeTe" class="lnThk">
+                                                    <td>
+                                                        @da.timeMt
+                                                    </td>
+                                                    <td style="color:darkslategrey">
+                                                        @da.HomeTe
+                                                    </td>
+                                                    <td>
+                                                        @da.HomeWn
+                                                    </td>
+                                                    <td>
+                                                        @da.Draw
+                                                    </td>
+                                                    <td>
+                                                        @da.AwayWn
+                                                    </td>
+                                                    <td>
+                                                        @da.TotalChoice
+                                                    </td>
+                                                    <td>
+                                                        @da.OverChoice
+                                                    </td>
+                                                    <td>
+                                                        @da.UnderChoice
+                                                    </td>
+                                                    <td>
+                                                        @da.HomeChoice
+                                                    </td>
+                                                    <td>
+                                                        @da.DrawChoice
+                                                    </td>
+                                                    <td>
+                                                        @da.AwayChoice
+                                                    </td>
+                                                </tr>
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        Thông tin kèo về của các trận đấu đang được cập nhật, vui lòng trở lại sau, cảm ơn!
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="tab-pane" id="alleag" role="tabpanel" aria-labelledby="alleag-tab">
+            @*<div style="overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling: touch;">*@
+                <iframe src="https://sportsbook.388bet.com/_view/RMOdds1.aspx" name="window" style="width:100%; height: 800px"@*width="500px" height="800px"*@></iframe>
+            @*</div>*@
+        </div>
+    </div>
+
+    <style>
+        .nav-pills > .active > a, .nav-pills > .active > a:hover {
+            background-color: darkseagreen !important;
+        }
+
+        a, a:hover {
+            cursor: pointer;
+        }
+
+        /*a:link {
+            text-decoration: underline;
+        }*/
+
+        td {
+            font-size: 8pt;
+        }
+
+        .newst th {
+            font-size: 10px;
+        }
+
+        .odds_group {
+            padding: 4px 0 0;
+        }
+
+        .odds_group-title {
+            color: gray;
+        }
+
+        .odds_table {
+            width: 100%;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .odds_table th {
+            font-size: 10px;
+            color: #a0a0a0;
+            padding-bottom: 0;
+            text-align: center;
+        }
+
+        .odds_table td {
+            width: 33.333%;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #E0FFFF;
+        }
+
+        thead {
+            background-color: #E0FFFF;
+        }
+    </style>
+
+    <script type="text/javascript">
+        //$(".blink_me").fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+
+        $(document).ready(function () {
+
+            $("#tbsk tbody").on("click", "tr", function (e) {
+                var mid = $(this).closest('tr').attr('id')
+                e.preventDefault();
+                $.ajax({
+                    url: '/TongHopKeo/KeoDetail',
+                    type: 'GET',
+                    async: false,
+                    dataType: 'html',
+                    data: {
+                        mts: $(this).closest('tr').attr('id')
+                    },
+                    success: function (data) {
+                        //$('#match').html(data);
+                        window.location = '@Url.Action("KeoDetail", "TongHopKeo")?mts=' + mid
+                        //setTimeout(function () {
+                        //    location.reload();
+                        //}, 15000);
+                        //e.target;
+                        //e.relatedTarget;
+                    }
+                });
+                return false;
+            });
+
+            $('.lnThk').click(function (e) {
+                var mid = $(this).closest('tr').attr('id')
+                e.preventDefault();
+                $.ajax({
+                    url: '/TongHopKeo/KeoDetail',
+                    type: 'GET',
+                    async: false,
+                    dataType: 'html',
+                    data: {
+                        mts: $(this).closest('tr').attr('id')
+                    },
+                    success: function (data) {
+                        //$('#match').html(data);
+                        window.location = '@Url.Action("KeoDetail", "TongHopKeo")?mts=' + mid
+                        //setTimeout(function () {
+                        //    location.reload();
+                        //}, 15000);
+                        //e.target;
+                        //e.relatedTarget;
+                    }
+                });
+                return false;
+            }
+                );
+
+        });
+    </script>

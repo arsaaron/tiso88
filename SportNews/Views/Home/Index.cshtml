@@ -1,0 +1,232 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@*<div class="jumbotron" id="headim">*@
+    @*<h1>WORLD CUP 2018</h1>
+    <p class="lead">The 2018 FIFA World Cup will be the 21st FIFA World Cup. It is scheduled to take place in Russia from 14 June to 15 July 2018, after the country was awarded the hosting rights on 2 December 2010.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+@*</div>*@
+
+<div class="row bggen" id="ndt">
+    <div id="loading"></div>
+    <div class="col-md-12" id="newst">
+        
+    </div>
+    <div class="col-md-12" id="ideast">
+        @*<h2>Thông tin World Cup 2018</h2>
+        <p>
+            Lịch thi đấu, kết quả , kèo World Cup 2018.
+        </p>
+        <p><a class="btn btn-default" href="#" onclick="WcDetail()">Xem chi tiết &raquo;</a></p>*@
+    </div>
+    <div class="col-md-12" id="schst">
+        @*<h2>Lịch sử các kỳ World Cup</h2>
+        <p>Cùng xem lại những trận cầu đáng nhớ trong lịch sử </p>
+        <p><a class="btn btn-default" href="#" onclick="History()">Xem chi tiết &raquo;</a></p>*@
+    </div>
+    <div class="col-md-12" id="vdst">
+        @*<h2>Về nước Nga</h2>
+        <p>TÌm hiểu nước chủ nhà FIFA World Cup 2018.</p>
+        <p><a class="btn btn-default" href="https://en.wikipedia.org/wiki/Russia">Xem chi tiết &raquo;</a></p>*@
+    </div>
+    <div class="col-md-12" id="engst">
+
+    </div>
+    <div class="col-md-12" id="spast">
+
+    </div>
+    <div class="col-md-12" id="c1st">
+
+    </div>
+    <div class="col-md-12" id="c3st">
+
+    </div>
+    <div class="col-md-12" id="itast">
+
+    </div>
+    <div class="col-md-12" id="bdlst">
+
+    </div>
+    <div class="col-md-12" id="lg1st">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function scr11() {
+        $.ajax({
+            url: '/Home/SearchBoard',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#newst').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr22() {
+        $.ajax({
+            url: '/Home/SearchIdea',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#ideast').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr33() {
+        $.ajax({
+            url: '/Home/SearchVideo',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#vdst').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr44() {
+        $.ajax({
+            url: '/Home/SearchEng',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#engst').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr55() {
+        $.ajax({
+            url: '/Home/SearchSpain',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#spast').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr6() {
+        $.ajax({
+            url: '/Home/SearchCham',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#c1st').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr7() {
+        $.ajax({
+            url: '/Home/SearchErp',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#c3st').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr8() {
+        $.ajax({
+            url: '/Home/SearchItaly',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#itast').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr9() {
+        $.ajax({
+            url: '/Home/SearchGer',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#bdlst').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    function scr10() {
+        $.ajax({
+            url: '/Home/SearchFra',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#lg1st').html(data);
+                //e.target;
+                //e.relatedTarget;
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        scr11(), scr22(), scr33(), scr44(), scr55(), scr6(), scr7(), scr8(), scr9(), scr10()
+
+    });
+
+    function WcDetail() {
+        window.location.href = '/Home/Wc18Detail/';
+    }
+
+    function History() {
+        window.location.href = '/History/Index/';
+    }
+</script>
+
+<style>
+    #headim{
+        /*background-image:url('../../Upload/fifa_world_cup_2018_russia.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        height: 350px;*/
+    }
+
+    .bggen{
+              background-color: #f1f1f1;
+    }
+</style>

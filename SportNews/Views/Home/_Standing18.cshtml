@@ -1,0 +1,61 @@
+﻿@model SportNews.Models.MatchInfoModel
+@{
+    ViewBag.Title = "Match Info 18";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h2></h2>
+    </div>
+    <div class="panel-body">
+        @foreach (var dat in Model.StdGroup)
+        {
+            <hr />
+            <div class="table-responsive">
+                <table class="table table-bordered table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <td><b>@dat.name</b></td>
+                            <td><b>Tổng Số Trận</b></td>
+                            <td><b>Thắng</b></td>
+                            <td><b>Hòa</b></td>
+                            <td><b>Thua</b></td>
+                            <td><b>Bàn Thắng/Bàn Thua</b></td>
+                            <td><b>Hiệu Số</b></td>
+                            <td><b>Điểm</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in dat.listStand)
+                        {
+                            <tr>
+                                <td><img src="@data.TeamFlag" height="21" width="21" />&nbsp;&nbsp;@data.TeamName</td>
+                                <td>@data.matchesTotal</td>
+                                <td>@data.winTotal</td>
+                                <td>@data.drawTotal</td>
+                                <td>@data.lossTotal</td>
+                                <td>@data.goalsTotal</td>
+                                <td>@data.goalDiffTotal</td>
+                                <td>@data.pointsTotal</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+         
+        }
+    </div>
+</div>
+
+<style>
+    tr:nth-child(even) {
+        background-color: #E0FFFF;
+    }
+</style>
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    window.location.href = '/Home/MatchInfo18/';
+    //});
+</script>

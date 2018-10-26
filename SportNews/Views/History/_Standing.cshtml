@@ -1,0 +1,55 @@
+﻿@model SportNews.Models.MatchInfoModel
+@{
+    ViewBag.Title = "Match Info";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2></h2>
+    </div>
+    <div class="panel-body">
+        @foreach (var dat in Model.StdGroup)
+        {
+            <hr />
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <td><b>@dat.name</b></td>
+                        <td><b>MP</b></td>
+                        <td><b>W</b></td>
+                        <td><b>D</b></td>
+                        <td><b>L</b></td>
+                        <td><b>Goals</b></td>
+                        <td><b>Pts</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in dat.listStand)
+                    {
+                        <tr>
+                            <td><img src="@data.TeamFlag" height="21" width="21" />&nbsp;&nbsp;@data.TeamName</td>
+                            <td>@data.matchesTotal</td>
+                            <td>@data.winTotal</td>
+                            <td>@data.drawTotal</td>
+                            <td>@data.lossTotal</td>
+                            <td>@data.goalsTotal</td>
+                            <td>@data.pointsTotal</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    window.location.href = '/Home/MatchInfo18/';
+    //});
+</script>
+<style>
+    tr:nth-child(even) {
+    background-color: #E0FFFF
+}
+</style>

@@ -1,0 +1,148 @@
+﻿@model PagedList.IPagedList<SportNews.Models.ContentModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@*@model SportNews.Models.newslist*@
+@{
+    ViewBag.Title = "News List";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutCt.cshtml";
+}
+
+@if (Model != null)
+{
+    <hr />
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            News List
+        </div>
+        <div class="panel-body" id="pbd">
+            @*<div class="panel panel-default">
+                <div class="panel-heading"></div>
+                <div class="panel-body">*@
+            <table class="table table-striped">
+                <thead class="thead">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Link</th>
+                        @*<th>Category</th>*@
+                        <th colspan="2">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr id="@Model[i].news_id">
+                            <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model[i].title))</td>
+                            <td>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model[i].descp))</td>
+                            <td><a href="@Model[i].origin_url" target="_blank">Link gốc</a></td>
+                            @*<td>
+                                @Html.DropDownListFor(m => m.ctLst[i].category_id, new SelectList(@Model.ctLst[i].catList, "category_id", "category_name"), new { @class = "form-control", @id = "ddlCateWh"})
+                                <br />
+                                <button type="button" class="btnSave btn btn-info" value="Save">
+                                    <span class="glyphicon glyphicon-save"></span>
+                                </button>
+                            </td>*@
+                            <td>
+                                <button type="button" class="btnEdit btn btn-info" value="Edit">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btnDel btn btn-warning" value="Delete">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            <br />
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
+            @*</div>
+                </div>*@
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#ddlCateWh").change(function () {
+            var t = $(this).val();
+            alert("hello" + t + "-")
+
+        });
+        $('.btnEdit').click(function (e) {
+            var cid = $(this).closest('tr').attr('id')
+            e.preventDefault();
+            $.ajax({
+                url: '/DataWh/Edit',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    id: cid
+                },
+                success: function (data) {
+                    //$('#formct').html(data);
+                    window.location = '@Url.Action("Edit", "DataWh")?id=' + cid
+                }
+            });
+            return false;
+        }
+        );
+
+        $('.btnDel').click(function (e) {
+            var r = confirm("Có chăc chắn xóa không?");
+            if (r == true) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/Conte/Delete',
+                    type: 'POST',
+                    async: false,
+                    dataType: 'html',
+                    data: {
+                        id: $(this).closest('tr').attr('id')
+                    },
+                    success: function (data) {
+                        //$('#formct').html(data);
+                        window.location = '@Url.Action("Index", "DataWh")'
+                    }
+                });
+            } else {
+                return;
+            }
+            return false;
+        }
+    );
+
+        $('.btnSave').click(function (e) {
+            var cid = $(this).closest('tr').attr('id');
+            var catid = $("#ddlCateWh").val();
+            alert(cid + "-" + catid)
+            e.preventDefault();
+            $.ajax({
+                url: '/DataWh/SaveCt',
+                type: 'POST',
+                async: false,
+                dataType: 'html',
+                data: {
+                    catId: catid,
+                    id: cid
+                },
+                success: function (data) {
+                    //$('#formct').html(data);
+                    window.location = '@Url.Action("Index", "DataWh")'
+                }
+            });
+            return false;
+        }
+    );
+
+    });
+</script>

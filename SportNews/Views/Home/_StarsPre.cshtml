@@ -1,0 +1,178 @@
+﻿@model SportNews.Models.newslist
+@{
+    ViewBag.Title = "Tin bên lề - ngôi sao";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /*#uls {
+        border-left: 5px solid blue;
+        background-color: #f1f1f1;
+        list-style-type: none;
+        padding: 10px 20px;
+    }*/
+
+    ul.bp {
+        list-style-type: none;
+    }
+
+    a, a:hover {
+        cursor: pointer;
+    }
+
+    .icoLiv {
+        display: inline-block;
+        color: #fff;
+        font-size: 7px;
+        line-height: 12px;
+        position: relative;
+        top: -3px;
+        text-transform: uppercase;
+        font-weight: 700;
+        background: red;
+        padding: 0 3px;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+
+    .panel {
+        border: 0;
+    }
+
+    p{
+        font-size:12px;
+    }
+</style>
+
+@if (Model.ctLst != null)
+{
+    @*<hr />*@
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <b>Tin bên lề - Ngôi sao</b>
+        </div>
+        <div class="panel-body" id="pbd">
+            @*<div class="panel panel-default">
+                <div class="panel-body">*@
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    @foreach (var dat in Model.ctLst)
+                    {
+                        <div class="col-md-12 col-sm-12">
+                            @if (dat.Stt == 1)
+                            {
+                                <div id="@dat.title^@dat.news_id">
+                                    <a class="lnknes">
+                                        <label>
+                                            @dat.title
+                                            @if (dat.hot == 1)
+                                            {
+                                                <span class="icoLiv">Hot</span>
+                                            }
+                                        </label>
+                                        <img src="@dat.imageLnk" alt="image link" border="0">
+                                        <p>@dat.descp</p>
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="@dat.title-@dat.news_id">
+                                    <a class="lnknes">
+                                        <p>
+                                            @dat.title
+                                            @if (dat.hot == 1)
+                                            {
+                                                <span class="icoLiv">Hot</span>
+                                            }
+                                        </p>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        @*<div class="col-md-6 col-sm-12">*@
+
+                        @*</div>*@
+                        @*<ul class="bp">
+                                @if (dat.Stt == 1)
+                                {
+                                    <li id="@dat.news_id">
+                                        <a class="lnkne">
+                                            <label>@dat.title</label>
+
+                                            <img src="@dat.imageLnk" alt="image link" border="0">
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li id="@dat.news_id">
+                                        <a class="lnkne">
+                                            <label>@dat.title</label>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>*@
+                    }
+                    <a class="lnkst">
+                        <label>Xem thêm...</label>
+                    </a>
+                </div>
+            </div>
+            @*</div>
+                </div>*@
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.lnknes').click(function (e) {
+            var cid = $(this).closest('div').attr('id')
+            e.preventDefault();
+            $.ajax({
+                url: '/Stars/StarDetail',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    news: cid
+                },
+                success: function (data) {
+                    window.location = '@Url.Action("StarDetail", "Stars")?news=' + cid
+                    //$('#ndt').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+        );
+
+        $('.lnkst').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/Stars/Index',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                //data: {
+                //    id: $(this).closest('li').attr('id')
+                //},
+                success: function (data) {
+                    window.location = '@Url.Action("Index", "Stars")'
+                    //$('#ndt').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+        );
+    });
+</script>
+

@@ -1,0 +1,170 @@
+﻿@model SportNews.Models.RoundInfo
+@{
+    ViewBag.Title = "";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    a, a:hover {
+        cursor: pointer;
+    }
+
+    .bgli {
+        background-color: black;
+        color: white;
+    }
+
+    .bgsub {
+        color: black;
+    }
+    /*.blink_me {
+        animation: blinker 1s linear infinite;
+    }*/
+</style>
+@*<hr />*@
+@*<div class="panel panel-success">
+    <div class="panel-heading">
+        <b>Lịch thi đấu, kết quả cập nhật</b>
+    </div>
+    <div class="panel-body">*@
+@*@foreach (var data in Model.Schelst)
+    {*@
+@*<div class="panel panel-default">*@
+@*<div class="panel-heading">@data.RoundName</div>*@
+@*<div class="panel-body">*@
+<table class="table table-responsive table-striped">
+    <thead class="bgli">
+        <tr>
+            <th colspan="3">Thông tin trận đấu</th>
+            <th colspan="3">Kèo Châu Âu</th>
+        </tr>
+        <tr class="bgsub">
+            <th>Thời gian</th>
+            <th></th>
+            <th>Trận đấu</th>
+            <th>Chủ</th>
+            <th>Tỷ lệ</th>
+            <th>Khách</th>
+            @*<th>Soi kèo</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model.Schelst)
+        {
+            <tr id="@data.HomeTeam+@data.AwayTeam^@data.MatchId">
+                <td>
+                    @data.timeSt
+                </td>
+                <td>
+                    @if (data.status == "6" || data.status == "7")
+                    {
+                        @*<p>@dat.timeIn'</p>*@
+                        <span class="blink_me" style="color:red">@data.timeIn'</span>
+                    }
+                    else
+                    {
+                        <span class="blink_me">@data.timeIn</span>
+                    }
+                </td>
+                <td>
+                    <a class="lnkpr">
+                        <img src="@data.HomeFlag" height="21" width="21" />&nbsp;&nbsp;@data.HomeTeam&nbsp;&nbsp;@data.HomeScore
+                        -
+                        @data.AwayScore&nbsp;&nbsp;<img src="@data.AwayFlag" height="21" width="21" />&nbsp;&nbsp;@data.AwayTeam
+                    </a>
+                </td>
+                @if (data.ore.LstAll != null)
+                {
+                    foreach (var dt in data.ore.LstAll)
+                    {
+                        foreach (var ls in dt.OddLst)
+                        {
+                            <td>
+                                @ls.HomeWn
+                            </td>
+                            <td>
+                                @ls.Draw
+                            </td>
+                            <td>
+                                @ls.AwayWn
+                            </td>
+                        }
+
+                    }
+                }
+                else
+                {
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                }
+
+                @*<td>
+                        <a class="lnksk">
+                            Watch
+                        </a>
+                    </td>*@
+            </tr>
+
+        }
+    </tbody>
+</table>
+@*</div>*@
+@*</div>*@
+@*}*@
+@*</div>
+    </div>*@
+<script type="text/javascript">
+    //$(".blink_me").fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+
+    $(document).ready(function () {
+
+        $('.lnkpr').click(function (e) {
+            var mid = $(this).closest('tr').attr('id')
+            e.preventDefault();
+            $.ajax({
+                url: '/Home/MatchDetail',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    match: $(this).closest('tr').attr('id')
+                },
+                success: function (data) {
+                    //$('#match').html(data);
+                    window.location = '@Url.Action("MatchDetail", "Home")?match=' + mid
+                    //setTimeout(function () {
+                    //    location.reload();
+                    //}, 15000);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+            );
+
+        //$('.lnksk').click(function (e) {
+        //    e.preventDefault();
+        //    $.ajax({
+        //        url: '/Home/SoiKeo',
+        //        type: 'GET',
+        //        async: false,
+        //        dataType: 'html',
+        //        data: {
+        //            id: $(this).closest('tr').attr('id')
+        //        },
+        //        success: function (data) {
+        //            $('#match').html(data);
+        //            //e.target;
+        //            //e.relatedTarget;
+        //        }
+        //    });
+        //    return false;
+        //}
+        //    );
+
+    });
+</script>
+
+

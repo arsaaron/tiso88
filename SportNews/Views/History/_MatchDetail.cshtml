@@ -1,0 +1,1050 @@
+﻿@model SportNews.Models.Formation
+<hr />
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @*<h3>Match Detail</h3>*@
+    </div>
+    <div class="panel-body">
+        @*<div class="tab-content">*@
+        <div class="lineups">
+            <div class="row col-md-offset-2">
+                @Html.HiddenFor(m => m.MatchId, new { @class = "form-control", id = "mid" })
+                <button class="btn btn-default" id="btnbck">Back</button>
+            </div>
+            <div class="row">
+                <div class="cell details_score-cell">
+                    <div class="cell_section details_emblem-container col-md-offset-2">
+                        <div style="margin-top: 20px;"></div>
+                        <div class="cell_section">
+                            <span class="tournament_name">@Model.HomeName</span>
+                        </div>
+                        <div class="cell_content img-team-link-container">
+                            <a class="img-team-link">
+                                <img src="@Model.HomeFlag" class="img-x56">
+                                <span class="img-team-link_txt en">Team details ››</span>
+                            </a>
+                        </div>
+                        @*<div class="cell_content">
+                                <a href="javascript:void(0)" class="follow-button js-follow-team js-follow-team-4748" data-team-id="4748">
+                                    <span class="follow-text" title="Add to Favorites">
+                                        Follow
+                                    </span>
+                                    <span class="following-text" title="Remove from Favorites">
+                                        Following
+                                        <span class="soficons favorites-icon soficons-favorites-following"></span>
+                                    </span>
+                                </a>
+                            </div>*@
+                    </div>
+
+
+                    <div class="cell_section-main u-tC">
+
+                        <div class="cell_content u-pT8">
+                            <span class="h1 ">
+                                <span class="winner  ">
+                                    @Model.HomeScore
+                                </span>
+                                -
+                                <span class=" ">
+                                    @Model.AwayScore
+                                </span>
+                            </span>
+                        </div>
+
+                        @*<div class="cell__content">
+                                <span class="u-t2 u-t16">
+                                    (1 - 1)
+                                </span>
+                            </div>*@
+
+                    </div>
+
+                    <div class="cell_section details_emblem-container">
+                        <div style="margin-top: 20px;"></div>
+                        <div class="cell_section">
+                            <span class="tournament_name">@Model.AwayName</span>
+                        </div>
+                        <div class="cell__content img-team-link-container">
+                            <a class="img-team-link">
+                                <img src="@Model.AwayFlag" class="img-x56">
+                                <span class="img-team-link_txt en">Team details ››</span>
+                            </a>
+                        </div>
+                        @*<div class="cell__content">
+                                <a href="javascript:void(0)" class="follow-button js-follow-team js-follow-team-4715" data-team-id="4715">
+                                    <span class="follow-text" title="Add to Favorites">
+                                        Follow
+                                    </span>
+                                    <span class="following-text" title="Remove from Favorites">
+                                        Following
+                                        <span class="soficons favorites-icon soficons-favorites-following"></span>
+                                    </span>
+                                </a>
+                            </div>*@
+                    </div>
+                    <div class="col-md-offset-2"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <ul class="nav nav-pills nav-justified">
+                <li class="active"><a id="detail-tab" href="#detail" data-toggle="tab" aria-controls="match">Detail</a></li>
+                <li><a id="lineup-tab" href="#lineup" data-toggle="tab" aria-controls="news">Lineup</a></li>
+                <li><a cid="Statistics-tab" href="#Statistics" data-toggle="tab" aria-controls="standing">Statistics</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
+                    <hr />
+                    <div class="lineups">
+                        @if (Model.goalLst.Count > 0)
+                        {
+                            <div class="row">
+                                <div class="incidents-container">
+                                    @foreach (var go in Model.goalLst)
+                                    {
+                                        if (go.InciType == "goal")
+                                        {
+                                            if (go.scoringTeam == 1)
+                                            {
+                                                <div class="cell cell-incident col-md-offset-3">
+                                                    <div class="cell_section" title="Goal">
+                                                        <div class="cell_content incident_icon">
+                                                            <span class="soficons football-goal "></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section">
+                                                        <div class="cell_content incident_time">
+                                                            @go.time'
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section-main" title="">
+                                                        <div class="cell_content">
+                                                            @*<span class="incident__goal">
+                                                                    3 - 1
+                                                                </span>*@
+                                                            <span class="incident_scorer">
+                                                                <a class="incident_player">@go.Player</a>
+                                                            </span>
+                                                            @if (go.from != "")
+                                                            {
+                                                                <span class="incident_scorer">
+                                                                    (@go.from)
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="cell cell-right cell-incident">
+                                                    <div class="cell_section-main" title="">
+                                                        <div class="cell_content">
+                                                            <span class="incident_scorer">
+                                                                <a class="incident_player">@go.Player</a>
+                                                            </span>
+                                                            @if (go.from != "")
+                                                            {
+                                                                <span class="incident_scorer">
+                                                                    (@go.from)
+                                                                </span>
+                                                            }
+                                                            @*<span class="incident__goal">
+                                                                    &nbsp;0 - 1
+                                                                </span>*@
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section">
+                                                        <div class="cell_content incident_time">
+                                                            @go.time'
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section" title="Own goal">
+                                                        <div class="cell_content incident_icon">
+                                                            <span class="soficons football-goal "></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-offset-3"></div>
+                                                </div>
+                                            }
+                                        }
+                                        else if (go.InciType == "card")
+                                        {
+                                            if (go.scoringTeam == 1)
+                                            {
+                                                <div class="cell cell-incident col-md-offset-3">
+                                                    @if (go.type == "Red")
+                                                    {
+                                                        <div class="cell_section" title="Red card">
+                                                            <div class="cell_content incident_icon">
+                                                                <span class="soficons football-redcard "></span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else if (go.type == "Yellow")
+                                                    {
+                                                        <div class="cell_section" title="Yellow card">
+                                                            <div class="cell_content incident_icon">
+                                                                <span class="soficons football-yellowcard "></span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else if (go.type == "YellowRed")
+                                                    {
+                                                        <div class="cell_section" title="2nd Yellow card (Red)">
+                                                            <div class="cell_content incident_icon">
+                                                                <span class="soficons football-yellowcard2 "></span>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                    <div class="cell_section">
+                                                        <div class="cell_content incident_time">
+                                                            @go.time'
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section-main">
+                                                        <div class="cell_content ">
+                                                            <a class=" incident_player">@go.Player</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="cell cell-right cell-incident">
+                                                    <div class="cell_section-main">
+                                                        <div class="cell_content ">
+                                                            <a class=" incident_player">@go.Player</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section">
+                                                        <div class="cell_content incident_time">
+                                                            @go.time'
+                                                        </div>
+                                                    </div>
+                                                    @if (go.type == "Red")
+                                                    {
+                                                        <div class="cell_section" title="Red card">
+                                                            <div class="cell_content incident_icon">
+                                                                <span class="soficons football-redcard "></span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else if (go.type == "Yellow")
+                                                    {
+                                                        <div class="cell_section" title="Yellow card">
+                                                            <div class="cell_content incident_icon">
+                                                                <span class="soficons football-yellowcard "></span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else if (go.type == "YellowRed")
+                                                    {
+                                                        <div class="cell_section" title="2nd Yellow card (Red)">
+                                                            <div class="cell_content incident_icon">
+                                                                <span class="soficons football-yellowcard2 "></span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div class="col-md-offset-3"></div>
+                                                </div>
+                                            }
+                                        }
+                                        else if (go.InciType == "substitution")
+                                        {
+                                            if (go.scoringTeam == 1)
+                                            {
+                                                <div class="cell cell-incident col-md-offset-3">
+                                                    <div class="cell_section" title="Substitution">
+                                                        <div class="cell_content incident_icon">
+                                                            <span class="soficons football-substitution "></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section">
+                                                        <div class="cell_content incident_time">
+                                                            @go.time'
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section-main">
+                                                        <div class="cell_content">
+                                                            <span>
+                                                                <a class=" incident_player">In: @go.PlayerIn | </a>
+                                                            </span>
+                                                            <span class="incident_dim">
+                                                                <a class=" incident_player">Out: @go.PlayerOut</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="cell cell-right cell-incident">
+                                                    <div class="cell_section-main">
+                                                        <div class="cell_content">
+                                                            <span class="incident_dim">
+                                                                <a class=" incident_player">Out: @go.PlayerOut | </a>
+                                                            </span>
+                                                            <span>
+                                                                <a class=" incident_player">In : @go.PlayerIn</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section">
+                                                        <div class="cell_content incident_time">
+                                                            @go.time'
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section" title="Substitution">
+                                                        <div class="cell_content incident_icon">
+                                                            <span class="soficons football-substitution "></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-offset-3"></div>
+                                                </div>
+                                            }
+                                        }
+                                        else if (go.InciType == "period")
+                                        {
+                                            <div class="cell cell-center cell-incident">
+                                                <div class="cell_section">
+                                                    <div class="cell_content incident_period">
+                                                        <b>@go.content</b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 label-info">
+                                    There is no info at present, please return later, thanks!
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane" id="lineup" role="tabpanel" aria-labelledby="lineup-tab">
+                    <hr />
+                    @*<div class="lineups">*@
+                    @if (Model.HomeLineLst.Count > 0)
+                    {
+                        <div class="row stadi">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="cell lineups_col-wrapper lineups_col-wrapper-home">
+                                    @foreach (var dat in Model.HomeLineLst)
+                                    {
+                                        <div class="cell cell-vertical uh420">
+                                            @foreach (var da in dat.PlayerLine)
+                                            {
+                                                <div class="cell_section lineups_player">
+                                                    <div class="cell_content">
+                                                        <img height="44" src="@Model.photoHome">
+                                                    </div>
+                                                    <div class="cell_content lineups_player-name">
+                                                        <b>@da.PlayerName</b>
+                                                    </div>
+
+                                                    <div class="lineups_position" style="color: #009933; text-shadow: -1px -1px 0 #ffff00, 1px -1px 0 #ffff00, -1px 1px 0 #ffff00, 1px 1px 0 #ffff00;">
+                                                        @da.shirtNumber
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="cell lineups_col-wrapper lineups_col-wrapper-away">
+                                    @foreach (var dat in Model.AwayLineLst)
+                                    {
+                                        <div class="cell cell-vertical uh420">
+                                            @foreach (var da in dat.PlayerLine)
+                                            {
+                                                <div class="cell_section lineups_player">
+                                                    <div class="cell_content">
+                                                        <img height="44" src="@Model.photoAway">
+                                                    </div>
+                                                    <div class="cell_content lineups_player-name">
+                                                        <b>@da.PlayerName</b>
+                                                    </div>
+
+                                                    <div class="lineups_position" style="color: #009933; text-shadow: -1px -1px 0 #ffff00, 1px -1px 0 #ffff00, -1px 1px 0 #ffff00, 1px 1px 0 #ffff00;">
+                                                        @da.shirtNumber
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 label-info">
+                                SUBSTITUTES
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xs-12 col-md-6">
+                                <div>
+                                    @foreach (var dt in Model.subHomeLst)
+                                    {
+                                        <a class="cell cell-player-list player-cell-substitute  u-border-top">
+                                            @*<div class="cell_section u-pmL4">
+                                                    <div class="cell_content">
+                                                        <img class="img--x38 img--circle u-va-top" src="/images/player/image_39418.png" alt="image">
+                                                    </div>
+                                                </div>*@
+
+                                            <div class="cell_section-main u-mL12">
+                                                <div class="cell_content">
+                                                    <div class="cell">
+                                                        <div class="cell_section lineups_sub-player-name ff-medium">
+                                                            <div class="cell_content">
+                                                                <span class="u-pR4">@dt.shirtNumber</span>
+                                                                <span class=" u-pR6">@dt.PlayerName</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="cell_section">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="cell_content u-fs12">
+                                                    <span class="u-text-light">@dt.positionName</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div>
+                                    @foreach (var dt in Model.subAwayLst)
+                                    {
+                                        <a class="cell cell-player-list player-cell-substitute  u-border-top">
+                                            @*<div class="cell_section u-pmL4">
+                                                    <div class="cell_content">
+                                                        <img class="img--x38 img--circle u-va-top" src="/images/player/image_39418.png" alt="image">
+                                                    </div>
+                                                </div>*@
+
+                                            <div class="cell_section-main u-mL12">
+                                                <div class="cell_content">
+                                                    <div class="cell">
+                                                        <div class="cell_section lineups_sub-player-name ff-medium">
+                                                            <div class="cell_content">
+                                                                <span class="u-pR4">@dt.shirtNumber</span>
+                                                                <span class=" u-pR6">@dt.PlayerName</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="cell_section">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="cell_content u-fs12">
+                                                    <span class="u-text-light">@dt.positionName</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 label-info">
+                                There is no info at present, please return later, thanks!
+                            </div>
+                        </div>
+                    }
+
+                    @*</div>*@
+                </div>
+                <div class="tab-pane" id="Statistics" role="tabpanel" aria-labelledby="Statistics-tab">
+                    @if (Model.statsInfo.Count > 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="statistics-container col-md-8 altec">
+                                <h3 class="h-center">Statistics</h3>
+                                <div class="statistics tab-content ">
+                                    @foreach (var st in Model.statsInfo)
+                                    {
+                                        <div class="stat-group-event">
+                                            @foreach (var dt in st.statItems)
+                                            {
+                                                <div class="cell cell-incident">
+                                                    <div class="cell_section">
+                                                        <div class="cell_content stat-home ">
+                                                            @dt.home
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section-main u-tC">
+                                                        <div class="cell_content">
+                                                            @dt.name
+                                                        </div>
+                                                    </div>
+                                                    <div class="cell_section">
+                                                        <div class="cell_content stat-away ">
+                                                            @dt.away
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12 label-info">
+                                There is no info at present, please return later, thanks!
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        @*</div>*@
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnbck').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/History/MatchInfo',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    wid: $('#ddlYear').val()
+                },
+                success: function (data) {
+                    $('#match').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+            );
+    });
+</script>
+<style>
+    .lineups {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .lineups_col-wrapper-home {
+        flex-direction: row;
+    }
+
+    .lineups_col-wrapper {
+        justify-content: space-around;
+        min-height: 100%;
+    }
+
+    .cell {
+        display: flex;
+        align-items: center;
+        min-width: 1px;
+        border: 0 solid transparent;
+    }
+
+    .uh420 {
+        height: 420px !important;
+    }
+
+    .cell-vertical {
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .lineups_player {
+        position: relative;
+        display: block;
+        font-size: 12px;
+        width: 64px;
+        text-align: center;
+        border-radius: 12px;
+        background-color: transparent;
+        color: #16300d;
+        cursor: pointer;
+        transition: background-color .2s,border-radius .2s;
+    }
+
+    .cell_section {
+        flex: 0 1 auto;
+        flex-grow: 0;
+        flex-shrink: 1;
+        flex-basis: auto;
+    }
+
+    .lineups_col-wrapper-away {
+        flex-direction: row-reverse !important;
+    }
+
+    .lineups_col-wrapper-home > .cell-vertical {
+        flex-direction: column-reverse !important;
+    }
+
+    .lineups_col-wrapper-away > .cell-vertical {
+        flex-direction: column;
+    }
+
+    .lineups_content {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+        .lineups_content:before {
+            content: "";
+            position: absolute;
+            display: block;
+            left: 50%;
+            top: 6px;
+            width: 2px;
+            height: 420px;
+            background-color: #e5f6df;
+            z-index: 1;
+        }
+
+    .tab-content.lineups_content > .tab-pane, .tab-content > .active {
+        display: block;
+    }
+
+    @@media (min-width: 992px) .lineups-container-page .lineups_pane-home {
+        transform: translateX(0);
+    }
+
+    @@media (min-width: 992px) .lineups-container-page .lineups_pane {
+        width: 50.1%;
+    }
+
+    .lineups_pane-home.active {
+        transform: translateX(0);
+    }
+
+    .lineups_pane {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        transition: transform .3s ease-in-out;
+        border: 6px solid #bee9af;
+    }
+
+    .lineups_pane-home {
+        transform: translateX(-100%);
+        border-right: none;
+    }
+
+    .lineups_pane-away {
+        transform: translateX(100%);
+        border-left: none;
+    }
+
+    .stadi {
+        background-image: url('../../Upload/football-pitch-clip-art.jpg');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .cell_content {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .lineups_player-name {
+        overflow: visible;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .lineups_position {
+        position: absolute;
+        top: 10px;
+        left: 22px;
+        width: 18px;
+        font-weight: 700;
+        text-align: center;
+    }
+    /*sub*/
+    .lineups_pane.active + .lineups_substitutions {
+        display: block;
+        margin-top: 464px;
+        border-top: none;
+    }
+
+    a.cell {
+        text-decoration: none;
+        color: #404040;
+    }
+
+    .u-border-top, .u-bt {
+        border-top: 1px solid rgba(0,12,36,.07);
+    }
+
+    .lineups_pane + .lineups_substitutions {
+        display: none;
+    }
+
+    .lineups_substitutions {
+        position: relative;
+        display: block;
+        height: 100%;
+        margin-top: 0;
+        border-top: 1px solid #bee9af;
+    }
+
+    .cell-player-list {
+        padding: 2px 0;
+        margin-right: 0;
+        border-radius: 0;
+    }
+
+    .cell-interactive, .cell-listings, .cell-player-list {
+        cursor: pointer;
+        border-radius: 2px;
+    }
+
+    .u-mL12, .u-mL12.follow-button {
+        margin-left: 12px;
+    }
+
+    .cell_section-main {
+        flex: 1 0 64px;
+        overflow: auto;
+    }
+
+    .lineups_sub-player-name {
+        overflow: auto;
+    }
+
+    .incident_dim, .u-t2, .u-tDim, .u-text-light {
+        color: gray !important;
+    }
+
+    .lineups_rating, .lineups_subinfo, .u-fs12 {
+        font-size: 12px;
+    }
+
+    .ff-medium {
+        font-family: Roboto,Tahoma,Helvetica,Arial,sans-serif;
+        font-weight: 500;
+    }
+
+    .u-pR4 {
+        padding-right: 4px;
+    }
+
+    .u-pR6 {
+        padding-right: 6px;
+    }
+
+    .u-va-top {
+        vertical-align: top;
+    }
+
+    .img-player, .img-x38, .img-player-list {
+        height: 38px;
+        min-width: 38px;
+    }
+
+    .img-circle, .img-player {
+        border-radius: 50%;
+        position: relative;
+    }
+
+    img {
+        border: 0;
+    }
+
+    .details_score-cell {
+        min-height: 100px;
+        padding: 0 0 8px;
+    }
+
+    .details_emblem-container {
+        text-align: center;
+        flex: 0 0 100px;
+    }
+
+    .lineups_rating, .lineups_subinfo, .u-tC {
+        text-align: center;
+    }
+
+    .cell__section--main {
+        flex: 1 0 64px;
+        overflow: auto;
+    }
+
+    .details_emblem-container .cell_content {
+        overflow: visible;
+    }
+
+    .img-team-link-container {
+        overflow: visible;
+    }
+
+    .u-pT8 {
+        padding-top: 8px;
+    }
+
+    .img-team-link {
+        position: relative;
+        display: inline-block;
+        padding: 4px;
+        transition: background-color .2s,border-radius .2s;
+    }
+
+    a {
+        text-decoration: none;
+        color: #0057a3;
+    }
+
+    a {
+        background-color: transparent;
+    }
+
+    .img-team, .img-x56, .img-team {
+        height: 56px;
+        min-width: 56px;
+    }
+
+    .img-team-link_txt {
+        position: absolute;
+        bottom: -8px;
+        left: -4px;
+        font-size: 11px;
+        color: gray;
+        text-transform: capitalize;
+        opacity: 0;
+    }
+
+    .img-team-link_txt {
+        display: none !important;
+    }
+
+    .regular, .winner {
+        color: #404040;
+    }
+
+    .incident_dim, .u-t2, .u-tDim, .u-text-light {
+        color: gray !important;
+    }
+
+    .incidents-container {
+        padding: 8px 0;
+    }
+
+    .cell-incident {
+        height: 24px;
+        padding: 0 4px;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(0,12,36,.07);
+    }
+
+    .cell-center {
+        justify-content: center;
+    }
+
+    .cell-right {
+        justify-content: flex-end;
+    }
+
+    .incident_time {
+        color: gray;
+        font-size: 12px;
+        min-width: 28px;
+    }
+
+    .incident_icon, .incident_time {
+        text-align: center;
+        overflow: visible;
+    }
+
+    .incident_icon {
+        width: 16px;
+        margin: -4px 4px 0;
+        font-size: 16px;
+    }
+
+    .cell-incident > .cell_section-main {
+        padding: 0 8px;
+    }
+
+    .incident_goal {
+        font-size: 15px;
+    }
+
+    .soficons {
+        width: 20px;
+        display: inline-block;
+        height: 22px;
+    }
+
+    /*.soficons, [class*=" soficons-"], [class^=soficons-] {
+        font-family: soficons;
+        speak: none;
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 0;
+        vertical-align: middle;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }*/
+
+    cell-incident .incident_player {
+        font-weight: 400;
+    }
+
+    .incident_player {
+        cursor: pointer;
+        transition: color .2s,text-decoration .2s;
+        color: #404040;
+        font-family: Roboto,Tahoma,Helvetica,Arial,sans-serif;
+        font-weight: 500;
+    }
+
+    .incident_scorer {
+        font-family: Roboto,Tahoma,Helvetica,Arial,sans-serif;
+        font-weight: 500;
+    }
+
+    .cell-right > .cell_section-main {
+        text-align: right;
+    }
+
+    .tournament_name {
+        font-size: 15px;
+        line-height: 0;
+        color: #404040;
+    }
+
+    .football-redcard {
+        background-image: url('../../Upload/Redcard.jpg');
+        background-repeat: no-repeat;
+        background-size: 18px 22px;
+    }
+
+    .football-yellowcard {
+        background-image: url('../../Upload/Yellow_Card.png');
+        background-repeat: no-repeat;
+        background-size: 18px 22px;
+    }
+
+    .football-yellowcard2 {
+        background-image: url('../../Upload/Yellow-red_card.svg.png');
+        background-repeat: no-repeat;
+        background-size: 22px 22px;
+    }
+
+    .football-goal {
+        background-image: url('../../Upload/Soccer_icon.png');
+        background-repeat: no-repeat;
+        background-size: 20px 22px;
+    }
+
+    .incident_dim, .u-t2, .u-tDim, .u-text-light {
+        color: gray !important;
+    }
+
+    .football-substitution {
+        background-image: url('../../Upload/substituicao.png');
+        background-repeat: no-repeat;
+        background-size: 20px 22px;
+    }
+
+    .incident_period {
+        font-size: 15px;
+    }
+
+    .statistics-container {
+        padding-bottom: 8px;
+    }
+
+    .h-center, .leagues_title, .odds_title {
+        display: flex;
+        justify-content: center;
+        padding: 12px 0;
+        margin: 8px 0 0;
+        text-transform: uppercase;
+        font-size: 15px;
+    }
+
+    .stat-group-event {
+        border-bottom: 1px solid rgba(0,12,36,.07);
+    }
+
+    .stat-highlight-home {
+        background-color: #bee9af;
+    }
+
+    .stat-highlight {
+        display: block;
+        border-radius: 28px;
+        text-align: center;
+        overflow: visible;
+    }
+
+    .stat-away, .stat-home {
+        padding: 2px 12px;
+    }
+
+    .altec :nth-child(even) {
+        background-color: #E0FFFF;
+    }
+    /*a {*/
+    /*.tab-content.lineups_content > .tab-pane, .tab-content > .active {
+            display: block;
+        }
+
+        .tab-content > .tab-pane {
+            display: none;
+        }*/
+    /*.lineups-container-page {
+            position: relative;
+            margin: 12px 0;
+        }
+
+        .tab-content.lineups_content > .tab-pane, .tab-content > .active {
+            display: block;
+        }
+
+        .tab-content > .tab-pane {
+            display: none;
+        }
+
+        .lineups-container-page {
+            position: relative;
+            margin: 12px 0;
+        }*/
+</style>

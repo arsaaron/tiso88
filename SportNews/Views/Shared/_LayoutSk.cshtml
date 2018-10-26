@@ -1,0 +1,380 @@
+﻿@using SportNews.Utility
+@using SportNews.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@*@ViewBag.Title*@ Tin tức, nhận định chuyên gia bóng đá - Soi kèo nhanh - Kèo nhà cái - livescore</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <meta name='description' content='TISO88 - tỷ số bóng đá - tỉ số bóng đá - livescore - Soi kèo nhanh - Kèo Nhà Cái - Bóng Đá Số - Báo Bóng Đá - Giải Mã Kèo, cập nhật tin tức bóng đá, bản tin thể thao trong nước và ngoài nước bongdaplus thể thao 24h.' />
+    <meta content='tiso88, ti so bong da, ty so bong da, soi keo nhanh, keo nha cai , bong da so, nhan dinh chuyen gia, nhan dinh keo, bongdaplus' name='keywords' />
+    <meta content='tiso88.com' name='author' />
+    @*<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>*@
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124956338-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-124956338-1');
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9426879698737666",
+            enable_page_level_ads: true
+        });
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+
+    @*<script src="~/Scripts/ckeditor/ckeditor.js"></script>*@
+    <script src="//cdn.ckeditor.com/4.9.2/full/ckeditor.js"></script>
+    @*<script src="~/Scripts/myJs.js" language="javascript" type="text/javascript"></script>*@
+
+    <style>
+        td {
+            font-size: 8pt;
+        }
+
+        #headim {
+            /*background-image: url('../../Upload/new_bgrs.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            height: 350px;*/
+        }
+
+        .affix {
+            top: 0;
+            width: 100%;
+            z-index: 9999 !important;
+        }
+
+        .bgh {
+            /*color: #f2f2f2;*/
+            background-color: #004c00;
+            text-shadow: 3px 2px yellow;
+        }
+
+        body {
+            /*background: url(../../Upload/elegant-waving-canvas.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;*/
+            background-color: #004c00;
+            z-index: -9999999999999999;
+            padding-top: 0px !important;
+            position: relative;
+        }
+
+        .affix + .container-fluid {
+            padding-top: 70px;
+        }
+
+        .navbar-header {
+            /*background-color: #0000cc;*/
+            /*border-color: #f2f2f2;*/
+            color: white;
+        }
+
+        .navbar-collapse, .navbar-inverse {
+            /*background-color: #0000cc;*/
+            /*border-color: #f2f2f2;*/
+            color: #f2f2f2;
+        }
+
+        .navbar-brand {
+            color: #d8d8d8 !important;
+        }
+
+            .navbar-brand:hover {
+                color: red !important;
+            }
+
+        .navbar-nav > li > a {
+            color: #d8d8d8 !important;
+        }
+
+            .navbar-nav > li > a:hover {
+                color: red !important;
+            }
+
+        .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+            color: black !important;
+            background-color: darkgrey;
+        }
+
+        .row.content {
+            height: 100%;
+            background-color: #f1f1f1;
+        }
+
+        .prv {
+            background-color: #004c00 !important;
+        }
+
+        .sidenav {
+            /*padding-top: 20px;*/
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        .wrapper {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        #header {
+            width: 100%;
+        }
+
+        #loading-indicator {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+        /*html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }*/
+        /*footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }*/
+
+        /*footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #555;
+            color: white;*/
+        /*padding: 15px;*/
+        /*}*/
+
+        @@media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+                background-color: #f1f1f1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container wrapper" id="header">
+        <div class="row content prv">
+            <div class="navbar navbar-inverse navbar-dark bg-dark" data-spy="affix" data-offset-top="197">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink("TISO88", "Index", "Home", new { area = "" }, new { @class = "navbar-brand Html.IsActive('Home', 'Wc18Detail')" })
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav" id="myNav">
+                            <li class='@Html.IsActive("Home", "FullNews")'>@Html.ActionLink("TIN TỨC", "FullNews", "Home", new { @style = "font-weight: bold;", @id = "titu" })</li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>LỊCH THI ĐẤU</b><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Ngoại Hạng Anh (Premier League)", "Wc18Detail", "Home", new { id = "Prm" })</li>
+                                    <li>@Html.ActionLink("Tây Ban Nha (La Liga)", "Wc18Detail", "Home", new { id = "Llg" })</li>
+                                    <li>@Html.ActionLink("UEFA Champions League", "Wc18Detail", "Home", new { id = "C1" })</li>
+                                    <li>@Html.ActionLink("Ý (Serie A)", "Wc18Detail", "Home", new { id = "Sra" })</li>
+                                    <li>@Html.ActionLink("Đức (Bundesliga)", "Wc18Detail", "Home", new { id = "Bdla" })</li>
+                                    <li>@Html.ActionLink("Pháp (Ligue 1)", "Wc18Detail", "Home", new { id = "Lg1" })</li>
+                                    <li>@Html.ActionLink("UEFA Europa League", "Wc18Detail", "Home", new { id = "Eup" })</li>
+                                </ul>
+                            </li>
+                            <li class='@Html.IsActive("ExpertIdea", "Index")'>@Html.ActionLink("NHẬN ĐỊNH CHUYÊN GIA", "Index", "ExpertIdea", new { @style = "font-weight: bold;", @id = "ndcg" })</li>
+                            @*<li class='@Html.IsActive("ExpertIdea", "Index")'>@Html.ActionLink("BẢNG XẾP HẠNG", "Index", "ExpertIdea", new { @style = "font-weight: bold;" })</li>*@
+                            <li class='@Html.IsActive("TongHopKeo", "Index")'>@Html.ActionLink("TỶ LỆ KÈO", "Index", "TongHopKeo", new { @style = "font-weight: bold;", @id = "thk" })</li>
+                            <li class='@Html.IsActive("HotVideo", "Index")'>@Html.ActionLink("HOT VIDEO", "Index", "HotVideo", new { @style = "font-weight: bold;", @id = "hvd" })</li>
+                            <li class='@Html.IsActive("Home", "Contact")'>@Html.ActionLink("LIÊN HỆ", "Contact", "Home", new { @style = "font-weight: bold;;" })</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h1 class="bgh">TIS<i class="fa fa-soccer-ball-o" style="color:yellow"></i>88.com</h1>
+            </div>
+            <div class="container-fluid" id="headim">
+
+            </div>
+
+        </div>
+    </div>
+    <div class="container wrapper">
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-sm-12">
+                    <div class="well col-sm-12 col-md-6">
+                        <p>FOR ADVERTISEMENT</p>
+                    </div>
+                    <div class="well col-sm-12 col-md-6">
+                        <p>FOR ADVERTISEMENT</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row content">
+                <div class="col-sm-12 text-left">
+                    @RenderBody()
+                </div>
+                @*<div class="col-sm-4 sidenav">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-left" id="sche">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-left" id="stand">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-left" id="trans">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-left" id="stars">
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="container wrapper">
+        <div class="prv row content">
+            <footer>
+                <p style="text-align:center; color:antiquewhite; font-weight:bold">&copy; @DateTime.Now.Year - tiso88.com</p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<script type="text/javascript">
+    function ExIdea() {
+        window.location.href = '/ExpertIdea/Index/';
+    }
+
+    function HotVideo() {
+        window.location.href = '/HotVideo/Index/';
+    }
+    $('#Prm').attr('href', '/Home/Wc18Detail?tourId=' + "Prm");
+    $('#Llg').attr('href', '/Home/Wc18Detail?tourId=' + "Llg");
+    $('#Bdla').attr('href', '/Home/Wc18Detail?tourId=' + "Bdla");
+    $('#Sra').attr('href', '/Home/Wc18Detail?tourId=' + "Sra");
+    $('#Lg1').attr('href', '/Home/Wc18Detail?tourId=' + "Lg1");
+    $('#C1').attr('href', '/Home/Wc18Detail?tourId=' + "C1");
+    $('#Eup').attr('href', '/Home/Wc18Detail?tourId=' + "Eup");
+    $('#thk').attr('href', '/TongHopKeo/Index');
+    $('#ndcg').attr('href', '/ExpertIdea/Index');
+    $('#hvd').attr('href', '/HotVideo/Index');
+    $('#titu').attr('href', '/Home/FullNews');
+
+    function scr12() {
+        $.ajax({
+            url: '/Home/MatchPre',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#sche').html(data);
+                //e.target;
+                //e.relatedTarget;
+            },
+            complete: function () {
+                $('#loading-indicator').hide();
+            }
+        });
+    }
+
+    function scr23() {
+        $.ajax({
+            url: '/Home/LiveMatch',
+            type: 'GET',
+            cache: !0,
+            //async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#headim').html(data);
+                //e.target;
+                //e.relatedTarget;
+            },
+            complete: function () {
+                $('#loading-image').hide();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#loading-indicator').show();
+
+        scr12(), scr23()
+        //$.ajax({
+        //    url: '/Home/StandPre',
+        //    type: 'GET',
+        //    async: false,
+        //    dataType: 'html',
+        //    success: function (data) {
+        //        $('#stand').html(data);
+        //        //e.target;
+        //        //e.relatedTarget;
+        //    },
+        //    complete: function () {
+        //        $('#loading-indicator').hide();
+        //    }
+        //});
+
+        //$.ajax({
+        //    url: '/Home/StarPre',
+        //    type: 'GET',
+        //    async: false,
+        //    dataType: 'html',
+        //    success: function (data) {
+        //        $('#stars').html(data);
+        //        //e.target;
+        //        //e.relatedTarget;
+        //    },
+        //    complete: function () {
+        //        $('#loading-indicator').hide();
+        //    }
+        //});
+
+        //$.ajax({
+        //    url: '/Home/TransPre',
+        //    type: 'GET',
+        //    async: false,
+        //    dataType: 'html',
+        //    success: function (data) {
+        //        $('#trans').html(data);
+        //        //e.target;
+        //        //e.relatedTarget;
+        //    },
+        //    complete: function () {
+        //        $('#loading-indicator').hide();
+        //    }
+        //});
+    });
+</script>
+
+

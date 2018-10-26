@@ -1,0 +1,183 @@
+﻿@model SportNews.Models.newslist
+@{
+    ViewBag.Title = "SERIE A";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /*#uls {
+        border-left: 5px solid blue;
+        background-color: #f1f1f1;
+        list-style-type: none;
+        padding: 10px 20px;
+    }*/
+
+    ul.bp {
+        list-style-type: none;
+    }
+
+    a, a:hover {
+        cursor: pointer;
+    }
+
+    .icoLiv {
+        display: inline-block;
+        color: #fff;
+        font-size: 7px;
+        line-height: 12px;
+        position: relative;
+        top: -3px;
+        text-transform: uppercase;
+        font-weight: 700;
+        background: red;
+        padding: 0 3px;
+        border-radius: 3px;
+        margin-left: 5px;
+    }
+
+    .panel {
+        border: 0;
+    }
+
+    p {
+        font-size: 11px;
+    }
+</style>
+
+@if (Model.ctLst != null)
+{
+    @*<hr />*@
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <b>SERIE A (ITALY)</b>
+        </div>
+        <div class="panel-body" id="pbd">
+            @*<div class="panel panel-default">
+                <div class="panel-body">*@
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    @foreach (var dat in Model.ctLst)
+                    {
+                        <div class="col-md-6 col-sm-12">
+                            @if (dat.Stt == 1)
+                            {
+                                <div id="@dat.title^@dat.origin_url">
+                                    <a class="lnknetsra">
+                                        <b>
+                                            @Html.Raw(System.Web.HttpUtility.HtmlDecode(dat.title))
+                                            @if (dat.hot == 1)
+                                            {
+                                                <span class="icoLiv">Hot</span>
+                                            }
+                                        </b>
+                                        <img src="@dat.imageLnk" alt="image link" border="0" style="width:100%;">
+                                        <p></p>
+                                        <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(dat.descp))</p>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            @if (dat.Stt != 1 && dat.Stt <= 10)
+                            {
+                                <div id="@dat.title^@dat.origin_url">
+                                    <a class="lnknetsra">
+                                        <p>
+                                            @Html.Raw(System.Web.HttpUtility.HtmlDecode(dat.title))
+                                            @if (dat.hot == 1)
+                                            {
+                                                <span class="icoLiv">Hot</span>
+                                            }
+                                        </p>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        @*<ul class="bp">
+                                @if (dat.Stt == 1)
+                                {
+                                    <li id="@dat.news_id">
+                                        <a class="lnkne">
+                                            <label>@dat.title</label>
+
+                                            <img src="@dat.imageLnk" alt="image link" border="0">
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li id="@dat.news_id">
+                                        <a class="lnkne">
+                                            <label>@dat.title</label>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>*@
+                    }
+                    <a class="lnkfull2sra">
+                        <b>Xem thêm...</b>
+                    </a>
+                </div>
+            </div>
+            @*</div>
+                </div>*@
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.lnknetsra').click(function (e) {
+            var cid = $(this).closest('div').attr('id')
+            e.preventDefault();
+            $.ajax({
+                url: '/Italy/ItalyDetail',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    news: cid
+                },
+                success: function (data) {
+                    window.location = '@Url.Action("ItalyDetail", "Italy")?news=' + cid
+                    //$('#ndt').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+        );
+
+        $('.lnkfull2sra').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/Italy/Index',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                //data: {
+                //    id: $(this).closest('li').attr('id')
+                //},
+                success: function (data) {
+                    window.location = '@Url.Action("Index", "Italy")'
+                    //$('#ndt').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+        );
+    });
+</script>
+
+
+
+
+
+

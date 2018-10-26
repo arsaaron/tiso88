@@ -1,0 +1,119 @@
+﻿@model SportNews.Models.WcInfoModel
+@{
+    ViewBag.Title = "Match Info";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    a, a:hover {
+        cursor: pointer;
+    }
+</style>
+<hr />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2></h2>
+    </div>
+    <div class="panel-body">
+        @*<table class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <td><b>HomeTeam</b></td>
+                        <td><b>AwayTeam</b></td>
+                        <td><b>HomeScore</b></td>
+                        <td><b>AwayScore</b></td>
+                        <td><b>HomeFlag</b></td>
+                        <td><b>AwayFlag</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@data.HomeTeam</td>
+                            <td>@data.AwayTeam</td>
+                            <td>@data.HomeScore</td>
+                            <td>@data.AwayScore</td>
+                            <td><img src="@data.HomeFlag" height="21" width="21" /></td>
+                            <td><img src="@data.AwayFlag" height="21" width="21" /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
+        @foreach (var data in Model.RoundLst)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">@data.RoundName</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead class="thead">
+                            <tr>
+                                <th>Time</th>
+                                <th>Match</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dat in data.Schelst)
+                            {
+                                <tr id="@dat.MatchId">
+                                    <td style="display:none;"><input id="matchId" name="matchId" type="hidden" value="@dat.MatchId"></td>
+                                    <td>@dat.timeSt</td>
+                                    <td>
+                                        <a class="lnk">
+                                            <img src="@dat.HomeFlag" height="21" width="21" />&nbsp;&nbsp;@dat.HomeTeam&nbsp;&nbsp;@dat.HomeScore -
+                                            @dat.AwayScore&nbsp;&nbsp;<img src="@dat.AwayFlag" height="21" width="21" />&nbsp;&nbsp;@dat.AwayTeam
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.lnk').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/History/MatchDetail',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    id: $(this).closest('tr').attr('id')
+                },
+                success: function (data) {
+                    $('#match').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+            );
+        @*var url = '@Url.Action("MatchDetail", "History")';
+        document.getElementById("lnk").addEventListener("click", proclick, false);
+        function proclick() {
+            var keyWord = $('#Keyword').val();
+            $('#match').load(url, { id: $('#matchId').val() });
+            //$.ajax({
+            //    url: '/History/MatchDetail',
+            //    type: 'GET',
+            //    async: false,
+            //    dataType: 'html',
+            //    data: {
+            //        id: $('#matchId').val()
+            //    },
+            //    success: function (data) {
+            //        $('#match').html(data);
+            //        //e.target;
+            //        //e.relatedTarget;
+            //    }
+            //});
+        }*@
+
+    });
+</script>

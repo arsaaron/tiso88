@@ -1,0 +1,133 @@
+﻿@model SportNews.Models.MatchInfoModel
+@{
+    ViewBag.Title = "Bảng xếp hạng";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    //$('.carousel').carousel({
+    //    interval: false
+    //}
+    //    )
+</script>
+@*<hr />*@
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <b>Bảng xếp hạng</b>
+    </div>
+    <div class="panel-body">
+        <div id="stdTbl">
+            <div class="carousel slide">
+
+                <div class="carousel-inner">
+                    @foreach (var dat in Model.StdGroup)
+                    {
+                        if (dat.Stt == 1)
+                        {
+                            <div class="item active">
+                                <table class="table table-bordered table-responsive table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td><b>@dat.name</b></td>
+                                            <td><b>Số trận</b></td>
+                                            <td><b>Hiệu số</b></td>
+                                            <td><b>Điểm</b></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var data in dat.listStand)
+                                        {
+                                            <tr>
+                                                <td><img src="@data.TeamFlag" height="21" width="21" />&nbsp;&nbsp;@data.TeamName</td>
+                                                <td>@data.matchesTotal</td>
+                                                <td>@data.goalsTotal</td>
+                                                <td>@data.pointsTotal</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="item">
+                                <table class="table table-bordered table-responsive table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td><b>@dat.name</b></td>
+                                            <td><b>Số trận</b></td>
+                                            <td><b>Hiệu số</b></td>
+                                            <td><b>Điểm</b></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var data in dat.listStand)
+                                        {
+                                            <tr>
+                                                <td><img src="@data.TeamFlag" height="21" width="21" />&nbsp;&nbsp;@data.TeamName</td>
+                                                <td>@data.matchesTotal</td>
+                                                <td>@data.goalsTotal</td>
+                                                <td>@data.pointsTotal</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#stdTbl" data-slide="prev">
+                    <span class="icon-prev"></span>
+                </a>
+                <a class="right carousel-control" href="#stdTbl" data-slide="next">
+                    <span class="icon-next"></span>
+                </a>
+
+            </div>
+        </div>
+
+
+        @*@foreach (var dat in Model.StdGroup)
+            {
+                <table class="table table-bordered table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <td><b>@dat.name</b></td>
+                            <td><b>Hiệu số</b></td>
+                            <td><b>Điểm</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var data in dat.listStand)
+                        {
+                            <tr>
+                                <td><img src="@data.TeamFlag" height="21" width="21" />&nbsp;&nbsp;@data.TeamName</td>
+                                <td>@data.goalsTotal</td>
+                                <td>@data.pointsTotal</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }*@
+    </div>
+</div>
+
+<style>
+    tr:nth-child(even) {
+        background-color: #E0FFFF;
+    }
+    td{
+            font-size:8pt;
+        }
+</style>
+<script type="text/javascript">
+    //$('.carousel').carousel()
+    //$(document).ready(function () {
+    //    $('.carousel').carousel()
+    //});
+
+    $(function () {
+        $('#stdTbl').carousel();
+    });
+</script>

@@ -1,0 +1,47 @@
+﻿@model SportNews.Models.ContentModel
+@{
+    //ViewBag.Title = "News Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+
+@*<hr />*@
+<div id="edt">
+    @*<div class="panel panel-primary">
+        <div class="panel-heading">
+
+        </div>
+        <div class="panel-body">*@
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <label>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.title))</label>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <img src="@Model.imageLnk" alt="image link" border="0">
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.descp))</p>
+            <p>@Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.content))</p>
+        </div>
+        @if (Model.source != null || Model.source != "")
+        {
+            <div class="col-md-12 col-sm-12">
+                <p>Nguồn: @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.source))</p>
+            </div>
+        }
+    </div>
+    @*</div>
+        </div>*@
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+
+

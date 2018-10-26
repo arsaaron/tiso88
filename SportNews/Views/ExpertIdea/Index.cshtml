@@ -1,0 +1,145 @@
+﻿@model PagedList.IPagedList<SportNews.Models.ContentModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@*@model SportNews.Models.newslist*@
+@{
+    ViewBag.Title = "Nhận định chuyên gia - Soi kèo nhanh";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    a, a:hover {
+        cursor: pointer;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .panel {
+        border: 0;
+    }
+</style>
+
+@if (Model != null)
+{
+    @*<hr />*@
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            Nhận định chuyên gia - Soi kèo nhanh
+        </div>
+        <div class="panel-body" id="pbd">
+            @*<div class="panel panel-default">
+                <div class="panel-body">*@
+            @*<div class="row">*@
+            @foreach (var dat in Model)
+            {
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div id="@dat.title^@dat.origin_url">
+                            <a class="lnknid">
+                                <div class="col-md-6 col-sm-12">
+                                    <img src="@dat.imageLnk" alt="image link" border="0" style="width:100%;">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <b>@Html.Raw(System.Web.HttpUtility.HtmlDecode(dat.title))</b>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                @*<div class="col-md-12 col-sm-12">
+                        <div class="featured-side">
+                            <div class="featured-side-item" id="@dat.news_id">
+                                <div class="cl">&nbsp;</div>
+                                <a class="lnkfe">
+                                    <img src="@dat.imageLnk" alt="image link" border="0">
+                                </a>
+                                <h4>@dat.title</h4>
+                                <div class="cl">&nbsp;</div>
+
+                            </div>
+                        </div>
+                    </div>*@
+            }
+            @*</div>*@
+            @*</div>
+                </div>*@
+        </div>
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
+    </div>
+}
+
+<style>
+    /*.featured-side {
+        width: 260px;
+        padding-left: 6px;
+        float: left;
+    }
+
+    .featured-side-item {
+        padding-right: 5px;
+        padding-bottom: 10px;
+    }
+
+        .featured-side-item img {
+            border: 1px solid #000;
+            margin-right: 3px;
+        }
+
+        .featured-side-item h4, .featured-side-item h4 a {
+            font-size: 12px;
+            color: #9fea00;
+            padding-top: 4px;
+        }
+
+        .featured-side-item p {
+            color: #c9c9c9;
+            font-size: 10px;
+        }*/
+
+    /*.cl {
+        font-size: 0;
+        line-height: 0;
+        height: 0;
+        clear: both;
+    }*/
+
+    a, a:hover {
+        cursor: pointer;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.lnknid').click(function (e) {
+            var cid = $(this).closest('div').attr('id')
+            e.preventDefault();
+            $.ajax({
+                url: '/ExpertIdea/ExDetail',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    news: $(this).closest('div').attr('id')
+                },
+                success: function (data) {
+                    window.location = '@Url.Action("ExDetail", "ExpertIdea")?news=' + cid
+                    //$('#ndt').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+            return false;
+        }
+        );
+
+    });
+</script>
+

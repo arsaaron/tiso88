@@ -1,0 +1,152 @@
+﻿@using FCst = SportNews.Constants.FlagsConst;
+    @model SportNews.Models.WcInfoModel
+    @{
+        ViewBag.Title = "History";
+    }
+
+    <h2>World Cup History</h2>
+    <div class="col-sm-12">
+        @Html.DropDownListFor(model => model.season.Name, new List<SelectListItem>
+                {
+                    new SelectListItem() {Text = FCst.wc1txt, Value = FCst.wc1txt},
+                    new SelectListItem() {Text = FCst.wc2txt, Value = FCst.wc2txt},
+                    new SelectListItem() {Text = FCst.wc3txt, Value = FCst.wc3txt},
+                    new SelectListItem() {Text = FCst.wc4txt, Value = FCst.wc4txt},
+                    new SelectListItem() {Text = FCst.wc5txt, Value = FCst.wc5txt}
+
+                },
+                new { @id = "ddlYear", @class = "form-control" })
+    </div>
+    <br />
+    <div>
+        <ul class="nav nav-pills nav-justified">
+            <li class="active"><a id="match-tab" href="#match" data-toggle="tab" aria-controls="match">MATCHES</a></li>
+            <li><a id="news-tab" href="#news" data-toggle="tab" aria-controls="news">NEWS</a></li>
+            <li><a cid="standing-tab" href="#standing" data-toggle="tab" aria-controls="standing">STANDING</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="match" role="tabpanel" aria-labelledby="match-tab">
+                <hr />
+                @*@Html.Partial("~/views/home/_matchinfo18.cshtml", Model)*@
+            </div>
+            <div class="tab-pane" id="news" role="tabpanel" aria-labelledby="news-tab">
+
+            </div>
+            <div class="tab-pane" id="standing" role="tabpanel" aria-labelledby="standing-tab">
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var yearid;
+            var tabName = 'MATCHES';
+            $.ajax({
+                url: '/History/MatchInfo',
+                type: 'GET',
+                async: false,
+                dataType: 'html',
+                data: {
+                    wid: $('#ddlYear').val()
+                },
+                success: function (data) {
+                    $('#match').html(data);
+                    //e.target;
+                    //e.relatedTarget;
+                }
+            });
+
+            function proclick() {
+                $.ajax({
+                    url: '/History/MatchDetail',
+                    type: 'GET',
+                    async: false,
+                    dataType: 'html',
+                    data: {
+                        wid: $('#matchId').val()
+                    },
+                    success: function (data) {
+                        $('#match').html(data);
+                        //e.target;
+                        //e.relatedTarget;
+                    }
+                });
+            }
+
+            $("#ddlYear").change(function () {
+                yearid = $('#ddlYear').val();
+
+                if (tabName == 'MATCHES') {
+                    $.ajax({
+                        url: '/History/MatchInfo',
+                        type: 'GET',
+                        async: false,
+                        dataType: 'html',
+                        data: {
+                            wid: yearid
+                        },
+                        success: function (data) {
+                            $('#match').html(data);
+                            //e.target;
+                            //e.relatedTarget;
+                        }
+                    });
+                }
+                else if (tabName == 'STANDING') {
+                    $.ajax({
+                        url: '/History/Standing',
+                        type: 'GET',
+                        async: false,
+                        dataType: 'html',
+                        data: {
+                            wid: yearid
+                        },
+                        success: function (data) {
+                            $('#standing').html(data);
+                            //e.target;
+                            //e.relatedTarget;
+                        }
+                    });
+                }
+            });
+
+            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+                tabName = $(e.target).text(); //Get the name of the tab.
+                //alert("Hello666: " + tabName);
+
+                if (tabName == 'MATCHES') {
+                    $.ajax({
+                        url: '/History/MatchInfo',
+                        type: 'GET',
+                        async: false,
+                        dataType: 'html',
+                        data: {
+                            wid: $('#ddlYear').val()
+                        },
+                        success: function (data) {
+                            $('#match').html(data);
+                            //e.target;
+                            //e.relatedTarget;
+                        }
+                    });
+                }
+                else if (tabName == 'STANDING') {
+                    $.ajax({
+                        url: '/History/Standing',
+                        type: 'GET',
+                        async: false,
+                        dataType: 'html',
+                        data: {
+                            wid: $('#ddlYear').val()
+                        },
+                        success: function (data) {
+                            $('#standing').html(data);
+                            //e.target;
+                            //e.relatedTarget;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
