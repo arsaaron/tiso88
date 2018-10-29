@@ -37,15 +37,16 @@
                 <tbody>
                     @foreach (var data in Model.Schelst)
                     {
+                        <tr>
+                            <td>@data.timeSt</td>
+                        </tr>
                         <tr id="@data.HomeTeam+@data.AwayTeam^@data.MatchId">
                             <td style="text-align:right">
                                 @data.HomeTeam&nbsp;&nbsp;<img src="@data.HomeFlag" height="21" width="21" />
-                                <br />
-                                @data.timeSt
                             </td>
                             <td>
-                                <a class="lnkpr">
-                                    @data.HomeScore&nbsp;-&nbsp;@data.AwayScore
+                                <a class="lnkpr">                                    
+                                    <strong>@data.HomeScore&nbsp;-&nbsp;@data.AwayScore</strong>
                                 </a>
                             </td>
                             <td style="text-align:left">
